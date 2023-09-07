@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 
-import UploadImageController from '@/controllers/upload-image.controller'
+import UploadImageController from '@/controllers/aws-s3/upload-image.controller'
 
 import Storage from '@/models/storage.model'
 
@@ -39,7 +39,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
                 mimeType: savedImage.mimeType,
                 mediaContentType: savedImage.mediaContentType,
                 subjectField: savedImage.subjectField,
-                src: process.env.AWS_S3_URL_WEBSITE + savedImage.awsS3Path
+                src: process.env.AWS_S3_URL_WEBSITE + '/' + savedImage.awsS3Key
             });
         }
 

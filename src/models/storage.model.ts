@@ -66,8 +66,8 @@ StorageSchema.set('toJSON', { virtuals: true });
 StorageSchema.virtual('uuidFilename').get(function() {
   return this.uuidName + '.' + this.ext;
 });
-StorageSchema.virtual('awsS3Path').get(function() {
-  return `/projects/${this.projectId}/${this.mediaContentType}/${this.uuidName}/${this.filename}`;
+StorageSchema.virtual('awsS3Key').get(function() {
+  return `projects/${this.projectId}/${this.mediaContentType}/${this.uuidName}/${this.filename}`;
 });
 
 export default mongoose.models.Storage || mongoose.model < TStorageModel & Document > ("Storage", StorageSchema);

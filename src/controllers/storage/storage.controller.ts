@@ -23,7 +23,7 @@ export default async function StorageController(
             mimeType: s.mimeType,
             mediaContentType: s.mediaContentType,
             subjectField: s.subjectField,
-            src: process.env.AWS_S3_URL_WEBSITE + s.awsS3Path
+            src: process.env.AWS_S3_URL_WEBSITE + '/' + s.awsS3Key
         }));
 
         return {storage: output};
