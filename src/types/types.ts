@@ -37,3 +37,27 @@ export type TStagedTarget = {
   resourceUrl: string,
   url: string
 }
+export type TUploadImage = {
+  uuidName: string;
+  ext: string;
+  mimeType: string;
+  width: number;
+  height: number;
+  size: number;
+}
+
+export type TStorageDB = {
+  id: string;
+  subjectField: string;
+  filename: string;
+  uuidName: string;
+  width: number;
+  height: number;
+  size: number;
+  mimeType: string;
+  mediaContentType: string;
+  src: string;
+  awsS3Key: string;
+}
+
+export type TStorage = Omit<TStorageDB, 'awsS3Key'>

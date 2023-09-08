@@ -27,7 +27,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
         const stagedTargets: TStagedTarget[] = [];
         for (const file of files) {
-            const getHashFilename = (filename: any) => crypto.createHash('md5').update(filename).digest('hex');
+            const getHashFilename = (filename: string) => crypto.createHash('md5').update(filename).digest('hex');
             const getFilename = (filename: string) => {
                 filename = filename.replace(' ', '');
                 if (new RegExp('^[a-z0-9-_\.]+$', 'i').test(filename) === false) {
@@ -60,8 +60,13 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({stagedTargets});
     } catch (e) {
-        console.log(e)
-        res.json({error: 'error'});
+        let message = String(e);
+
+        if (e instanceof Error) {
+            message = e.message; 
+        }
+
+        res.json({error: 'server_error', description: message});
     }
 });
 

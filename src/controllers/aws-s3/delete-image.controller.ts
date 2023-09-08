@@ -8,7 +8,7 @@ const client = new S3Client({
     }
 });
 
-export default async function DeleteMedia(key: string): Promise<any> {
+export default async function DeleteMedia(key: string): Promise<boolean> {
     try {
         if (!key) {
             throw new Error('key is empty');

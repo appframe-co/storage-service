@@ -1,19 +1,19 @@
 import Storage from '@/models/storage.model';
-import {TErrorResponse} from '@/types/types';
+import {TErrorResponse, TStorage, TStorageDB} from '@/types/types';
 
 export default async function StorageController(
     {projectId, subjectId, subjectType}: {projectId: string, subjectId: string, subjectType: string}): 
-    Promise<TErrorResponse | {storage: any}>
+    Promise<TErrorResponse | {storage: TStorage[]}>
     {
     try {
         const filter: {projectId: string, subjectId: string, subjectType: string} = {projectId, subjectId, subjectType};
 
-        const storage = await Storage.find(filter);
+        const storage: TStorageDB[] = await Storage.find(filter);
         if (!storage) {
-            return {error: 'invalid_storage'};
+            throw new Error('invalid storage');
         }
 
-        const output = storage.map((s: any)  => ({
+        const output = storage.map(s  => ({
             id: s.id,
             filename: s.filename,
             uuidName: s.uuidName,

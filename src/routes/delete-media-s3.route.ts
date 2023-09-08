@@ -2,8 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import DeleteMediaS3Controller from '@/controllers/aws-s3/delete-image-s3.controller'
 
-import Storage from '@/models/storage.model'
-
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
@@ -29,7 +27,13 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({deletedMediaUrls});
     } catch (e) {
-        res.json({error: 'error'});
+        let message = String(e);
+
+        if (e instanceof Error) {
+            message = e.message; 
+        }
+
+        res.json({error: 'server_error', description: message});
     }
 });
 

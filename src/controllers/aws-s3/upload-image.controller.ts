@@ -1,3 +1,4 @@
+import { TUploadImage } from "@/types/types";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 
 import Jimp from 'jimp';
@@ -10,7 +11,7 @@ const client = new S3Client({
     }
 });
 
-export default async function UploadImage(url: string): Promise<any> {
+export default async function UploadImage(url: string): Promise<TUploadImage> {
     try {
         if (!url) {
             throw new Error('URL is empty');
@@ -84,8 +85,6 @@ export default async function UploadImage(url: string): Promise<any> {
             size: file.filesizeMB
         };
     } catch (error) {
-        console.log(error)
-
         throw error;
     }
 }
